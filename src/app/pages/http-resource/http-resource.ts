@@ -3,10 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject, resource, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
+import { Card } from "../../components/card/card";
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-http-resource',
-  imports: [JsonPipe, FormsModule],
+  imports: [JsonPipe, FormsModule, Card],
   templateUrl: './http-resource.html',
   styleUrl: './http-resource.css',
 })
@@ -17,7 +19,7 @@ export class HttpResource {
     // 'params' tracks dependencies; when they change, the stream re-runs
     // 'stream' returns an Observable (perfect for HttpClient)
     params: () => ({ id: this.userId() }),
-    stream: ({ params }) => this.http.get(`https://dummyjson.com/users/${params.id}`),
+    stream: ({ params }) => this.http.get<User>(`https://dummyjson.com/users/${params.id}`),
   });
 
   userResource = resource({

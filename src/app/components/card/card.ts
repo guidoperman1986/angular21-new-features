@@ -8,5 +8,5 @@ import { User } from '../../models/user';
   styleUrl: './card.css',
 })
 export class Card {
-  user = input<User>();
+  user = input.required<User>();
 }

@@ -14,10 +14,8 @@
       {{ userResource$.isLoading() }}
     </p>
     <!-- <p>{{ userResource.error() }}</p> -->
-    @if (userResource$.value()) {
-      <pre>
-        {{ userResource$.value() | json }}
-      </pre>
+    @if (userResource$.value(); as user) {
+      <app-card [user]="user"></app-card>
     } @else {
       <p>Loading...</p>
     }
@@ -35,10 +33,9 @@
     </p>
     
     @if (userResource.hasValue()) {
-      <pre>
-        {{ userResource.value() | json }}
-    </pre
-      >
+      @if (userResource.value(); as user) {
+        <app-card [user]="user"></app-card>
+      }
     } @else {
       <p>Loading...</p>
     }
