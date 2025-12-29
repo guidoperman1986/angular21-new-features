@@ -14,6 +14,10 @@ export const routes: Routes = [
                 loadComponent: () => import('./pages/http-resource/http-resource').then(c => c.HttpResource)
             },
             {
+                path: 'zoneless',
+                loadComponent: () => import('./pages/zoneless/zoneless').then(c => c.Zoneless)
+            },
+            {
                 path: '',
                 redirectTo: 'signal-forms',
                 pathMatch: 'full'

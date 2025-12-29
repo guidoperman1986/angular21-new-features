@@ -1,6 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
-import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
@@ -14,5 +12,6 @@ export class Dashboard {
   pages = [
     { label: 'Signal Forms', path: 'signal-forms' },
     { label: 'Http Resource', path: 'http-resource' },
+    { label: 'Zoneless', path: 'zoneless' },
   ];
 }
