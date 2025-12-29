@@ -1,0 +1,46 @@
+<div class="flex justify-center w-full">
+  <input type="number" [(ngModel)]="userId" class="border p-2 mb-4 mx-auto" />
+</div>
+
+<div class="grid grid-cols-2 gap-4">
+  <section>
+    <h2 class="text-2xl font-bold">rxResource</h2>
+    <p>
+      <span class="font-bold">Status:</span>
+      {{ userResource$.status() }}
+    </p>
+    <p>
+      <span class="font-bold">isLoading:</span>
+      {{ userResource$.isLoading() }}
+    </p>
+    <!-- <p>{{ userResource.error() }}</p> -->
+    @if (userResource$.value()) {
+      <pre>
+        {{ userResource$.value() | json }}
+      </pre>
+    } @else {
+      <p>Loading...</p>
+    }
+  </section>
+
+  <section>
+    <h2 class="text-2xl font-bold">resource</h2>
+    <p>
+      <span class="font-bold">Status:</span>
+      {{ userResource.status() }}
+    </p>
+    <p>
+      <span class="font-bold">isLoading:</span>
+      {{ userResource.isLoading() }}
+    </p>
+    
+    @if (userResource.hasValue()) {
+      <pre>
+        {{ userResource.value() | json }}
+    </pre
+      >
+    } @else {
+      <p>Loading...</p>
+    }
+  </section>
+</div>

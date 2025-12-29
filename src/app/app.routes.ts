@@ -10,6 +10,10 @@ export const routes: Routes = [
                 loadComponent: () => import('./components/signal-forms/signal-forms').then(c => c.SignalForms)
             },
             {
+                path: 'http-resource',
+                loadComponent: () => import('./pages/http-resource/http-resource').then(c => c.HttpResource)
+            },
+            {
                 path: '',
                 redirectTo: 'signal-forms',
                 pathMatch: 'full'
