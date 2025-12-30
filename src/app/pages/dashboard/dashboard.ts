@@ -13,5 +13,7 @@ export class Dashboard {
     { label: 'Signal Forms', path: 'signal-forms' },
     { label: 'Http Resource', path: 'http-resource' },
     { label: 'Zoneless', path: 'zoneless' },
+    { label: 'Angular Aria', path: 'angular-aria' },
+    { label: 'Control Flow', path: 'control-flow' },
   ];
 }

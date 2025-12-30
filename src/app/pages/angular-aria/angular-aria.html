@@ -1,0 +1,131 @@
+<div class="card bg-base-100 m-4 shadow-xl">
+  <div class="card-body">
+    <h2 class="card-title mb-4 text-2xl">Angular Aria (Official primitives)</h2>
+    <p class="mb-4">Headless, accessible directives for Menu, Listbox, and Tree.</p>
+
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div class="rounded-box border p-4">
+        <h3 class="mb-4 font-bold">Accessible Menu</h3>
+        <p class="mb-4 text-xs opacity-70">Click to open. Use Arrows to navigate. Esc to close.</p>
+        <!-- <button ngMenuTrigger #origin #trigger="ngMenuTrigger" [menu]="formatMenu()">Open Menu</button> -->
+        <button #trigger="ngMenuTrigger" class="btn btn-neutral" ngMenuTrigger [menu]="myMenu">Options ▾</button>
+
+        <!-- 
+              The menu directive applies role="menu", handles focus trap, etc.
+              We style it as a dropdown via daisyUI classes.
+            -->
+        <div
+          ngMenu
+          #myMenu="ngMenu"
+          class="menu bg-base-200 rounded-box border-base-300 z-50 mt-2 w-56 border shadow-lg">
+          <div
+            ngMenuItem
+            [value]="'profile'"
+            class="hover:bg-base-300 focus:bg-primary focus:text-primary-content cursor-pointer rounded p-2 outline-none">
+            Profile
+          </div>
+          <div
+            ngMenuItem
+            [value]="'settings'"
+            class="hover:bg-base-300 focus:bg-primary focus:text-primary-content cursor-pointer rounded p-2 outline-none">
+            Settings
+          </div>
+          <div class="divider my-0"></div>
+          <div
+            ngMenuItem
+            [value]="'logout'"
+            class="hover:bg-base-300 focus:bg-error focus:text-error-content cursor-pointer rounded p-2 outline-none">
+            Logout
+          </div>
+        </div>
+      </div>
+
+      <!-- Listbox Demo -->
+      <div class="rounded-box border p-4">
+        <h3 class="mb-4 font-bold">Accessible Listbox</h3>
+        <p class="mb-4 text-xs opacity-70">Use Up/Down arrows to select.</p>
+
+        <div class="flex flex-col gap-2">
+          <span id="lb-label" class="text-sm font-semibold">Select Role:</span>
+
+          <ul
+            ngListbox
+            [(values)]="selectedRoles"
+            aria-labelledby="lb-label"
+            class="menu bg-base-100 rounded-box h-48 w-full gap-1 overflow-y-auto border p-2">
+            @for (role of roles; track role.id) {
+              <li
+                ngOption
+                [value]="role.id"
+                class="hover:bg-base-200 focus:bg-primary focus:text-primary-content aria-selected:bg-base-300 cursor-pointer rounded p-2 outline-none aria-selected:font-bold">
+                <div class="flex items-center justify-between">
+                  <span>{{ role.name }}</span>
+                  @if (selectedRoles().includes(role.id)) {
+                    <span>✓</span>
+                  }
+                </div>
+              </li>
+            }
+          </ul>
+          <div class="mt-2 text-xs">Selected: {{ selectedRoles().join(', ') }}</div>
+        </div>
+      </div>
+
+      <!-- Tree Demo -->
+      <div class="rounded-box border p-4">
+        <h3 class="mb-4 font-bold">Accessible Tree</h3>
+        <p class="mb-4 text-xs opacity-70">
+          Navigation: Arrows (Right to expand, Left to collapse).
+        </p>
+
+        <ul ngTree #tree="ngTree" class="menu bg-base-100 rounded-box w-full gap-1">
+          <ng-template
+            [ngTemplateOutlet]="treeNodeTemplate"
+            [ngTemplateOutletContext]="{ $implicit: fileSystemData, parent: tree }"></ng-template>
+        </ul>
+
+        <ng-template #treeNodeTemplate let-nodes let-parent="parent">
+          @for (node of nodes; track node.name) {
+            <li
+              ngTreeItem
+              [parent]="parent"
+              [value]="node.name"
+              [label]="node.name"
+              #treeItem="ngTreeItem"
+              class="block gap-0">
+              <!-- Tree Item Content -->
+              <div
+                class="hover:bg-base-200 focus:bg-primary focus:text-primary-content flex cursor-pointer items-center gap-2 rounded p-2 outline-none">
+                @if (node.children) {
+                  <span class="w-4 text-xs">
+                    {{ treeItem.expanded() ? '▼' : '▶' }}
+                  </span>
+                } @else {
+                  <span class="w-4"></span>
+                }
+                <span>{{ node.name }}</span>
+              </div>
+
+              <!-- Recursive Children -->
+              @if (node.children) {
+                <ul
+                  role="group"
+                  [class.hidden]="!treeItem.expanded()"
+                  class="border-base-300 ml-4 border-l pl-2">
+                  <ng-template ngTreeItemGroup [ownedBy]="treeItem" #group="ngTreeItemGroup">
+                    <ng-template
+                      [ngTemplateOutlet]="treeNodeTemplate"
+                      [ngTemplateOutletContext]="{
+                        $implicit: node.children,
+                        parent: group,
+                      }"></ng-template>
+                  </ng-template>
+                </ul>
+              }
+            </li>
+          }
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

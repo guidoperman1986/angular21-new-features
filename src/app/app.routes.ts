@@ -18,6 +18,14 @@ export const routes: Routes = [
                 loadComponent: () => import('./pages/zoneless/zoneless').then(c => c.Zoneless)
             },
             {
+                path: 'angular-aria',
+                loadComponent: () => import('./pages/angular-aria/angular-aria').then(c => c.AngularAria)
+            },
+            {
+                path: 'control-flow',
+                loadComponent: () => import('./pages/control-flow/control-flow').then(c => c.ControlFlow)
+            },
+            {
                 path: '',
                 redirectTo: 'signal-forms',
                 pathMatch: 'full'

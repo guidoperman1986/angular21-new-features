@@ -1,0 +1,65 @@
+<!-- @defer -->
+<div class="p-6">
+  <h2 class="text-3xl font-bold mb-4">Deferred Loading (&#64;defer)</h2>
+  <p class="mb-8 text-slate-600">The &#64;defer block allows you to delay the loading of a component until a specific condition is met (like scrolling into view, a timer, or an interaction).</p>
+
+  <div class="mb-12">
+    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+      <span class="p-2 bg-blue-100 rounded-lg">1</span>
+      On Viewport Example
+    </h3>
+    <p class="mb-4 text-sm text-slate-500 italic">Scroll down to trigger the loading of the heavy report below.</p>
+    
+    <!-- Spacer to force scrolling -->
+    <div class="bg-gradient-to-b from-slate-100 to-slate-200 mb-8 flex h-[60vh] items-center justify-center rounded-2xl border-2 border-dashed border-slate-300">
+      <div class="text-center">
+        <p class="text-slate-400 font-medium">CONTENT SPACER</p>
+        <p class="text-slate-300 text-xs mt-2">The report is waiting below the fold...</p>
+        <div class="mt-4 animate-bounce text-2xl text-slate-300">↓</div>
+      </div>
+    </div>
+
+    @defer (on viewport) {
+      <app-heavy-report />
+    } @placeholder {
+      <div class="p-12 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl text-center">
+        <p class="text-slate-400">Placeholder: The Heavy Report will load when this enters the viewport.</p>
+      </div>
+    } @loading {
+      <div class="p-12 flex flex-col items-center justify-center bg-slate-50 rounded-2xl">
+        <span class="loading loading-infinity loading-lg text-primary"></span>
+        <p class="mt-4 text-slate-500 font-medium">Fetching heavy dashboard module...</p>
+      </div>
+    }
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="mt-12">
+    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+      <span class="p-2 bg-purple-100 rounded-lg">2</span>
+      Interaction & Timer
+    </h3>
+    <div class="flex flex-wrap gap-4 items-center mb-6">
+       <button #triggerBtn class="btn btn-primary shadow-lg shadow-primary/20">Hover Me (300ms Delay)</button>
+       <span class="text-sm text-slate-400">— OR —</span>
+       <div class="badge badge-outline p-4 font-mono">Triggers: hover(triggerBtn) + timer(5s)</div>
+    </div>
+
+    @defer (on hover(triggerBtn), timer(5s)) {
+      <div class="bg-gradient-to-r from-purple-600 to-indigo-600 p-8 rounded-2xl shadow-xl text-white">
+        <h4 class="text-2xl font-bold mb-2">Surprise! Intelligence Alert</h4>
+        <p class="opacity-90">This content was triggered by either your hover interaction or the 5-second fallback timer.</p>
+        <div class="mt-6 flex gap-2">
+           <div class="w-12 h-1 bg-white/30 rounded"></div>
+           <div class="w-12 h-1 bg-white/30 rounded"></div>
+           <div class="w-24 h-1 bg-white rounded animate-pulse"></div>
+        </div>
+      </div>
+    } @placeholder {
+      <div class="p-8 bg-slate-100 rounded-2xl border border-slate-200">
+        <p class="text-slate-400 italic">Content restricted until interaction or 5s timer...</p>
+      </div>
+    }
+  </div>
+</div>
