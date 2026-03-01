@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MOCK_USER } from '../../models/user';
 import { Card } from './card';
 
 describe('Card', () => {
@@ -13,7 +14,9 @@ describe('Card', () => {
     .compileComponents();
 
     fixture = TestBed.createComponent(Card);
+    fixture.componentRef.setInput('user', MOCK_USER);
     component = fixture.componentInstance;
+    
     await fixture.whenStable();
   });
 
