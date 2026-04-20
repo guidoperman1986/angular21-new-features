@@ -6,7 +6,7 @@
         <div>
             <label>
                 Email:
-                <input type="email" [field]="loginForm.email" />
+                <input type="email" [formField]="loginForm.email" />
             </label>
             @if (loginForm.email().touched() && loginForm.email().invalid()) {
             <ul class="error-list">
@@ -19,11 +19,24 @@
         <div>
             <label>
                 Password:
-                <input type="password" [field]="loginForm.password" />
+                <input type="password" [formField]="loginForm.password" />
             </label>
             @if (loginForm.password().touched() && loginForm.password().invalid()) {
             <div class="error-list">
                 @for (error of loginForm.password().errors(); track error) {
+                <p>{{ error.message }}</p>
+                }
+            </div>
+            }
+        </div>
+        <div>
+            <label>
+                Confirm Password:
+                <input type="password" [formField]="loginForm.confirmPassword" />
+            </label>
+            @if (loginForm.confirmPassword().touched() && loginForm.confirmPassword().invalid()) {
+            <div class="error-list">
+                @for (error of loginForm.confirmPassword().errors(); track error) {
                 <p>{{ error.message }}</p>
                 }
             </div>

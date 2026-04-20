@@ -1,14 +1,23 @@
 import { Component, effect, signal } from '@angular/core';
-import { form, Field, required, email, LogicFn, OneOrMany, PathKind, SchemaPath, SchemaPathRules, ValidationError, debounce, validate, submit } from '@angular/forms/signals';
+import {
+  debounce,
+  email,
+  form,
+  FormField,
+  required,
+  submit,
+  validate,
+} from '@angular/forms/signals';
 
 interface LoginData {
   email: string;
   password: string;
+  confirmPassword: string;
 }
 
 @Component({
   selector: 'app-signal-forms',
-  imports: [Field],
+  imports: [FormField],
   templateUrl: './signal-forms.html',
   styleUrl: './signal-forms.css',
 })
@@ -16,12 +25,13 @@ export class SignalForms {
   loginModel = signal<LoginData>({
     email: '',
     password: '',
+    confirmPassword: '',
   });
 
   loginForm = form(this.loginModel, (model) => {
-    email(model.email, { message: 'Email format is invalid' }),
+    (email(model.email, { message: 'Email format is invalid' }),
       required(model.email, { message: 'Email is required' }),
-      required(model.password, { message: 'Password is required' });
+      required(model.password, { message: 'Password is required' }));
     debounce(model.email, 500);
 
     validate(model.email, (email) => {
@@ -29,14 +39,21 @@ export class SignalForms {
         return { message: 'Email is not valid', kind: 'error' };
       }
       return null;
-    })
+    });
+
+    validate(model.confirmPassword, ({value, valueOf}) => {
+      if (value() !== valueOf(model.password)) {
+        return { message: 'Passwords do not match', kind: 'error' };
+      }
+      return null;
+    });
   });
 
   constructor() {
     // ✅ This is the equivalent of formGroup.valueChanges
     effect(() => {
       console.log(this.loginForm().value());
-    })
+    });
   }
 
   onSubmit(event: Event) {
@@ -55,8 +72,8 @@ export class SignalForms {
       this.loginModel.set({
         email: '',
         password: '',
+        confirmPassword: '',
       });
-    })
+    });
   }
 }
-

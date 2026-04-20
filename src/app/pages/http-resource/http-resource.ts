@@ -8,7 +8,7 @@ import { User } from '../../models/user';
 
 @Component({
   selector: 'app-http-resource',
-  imports: [JsonPipe, FormsModule, Card],
+  imports: [FormsModule, Card],
   templateUrl: './http-resource.html',
   styleUrl: './http-resource.css',
 })
