@@ -15,5 +15,6 @@ export class Dashboard {
     { label: 'Zoneless', path: 'zoneless' },
     { label: 'Angular Aria', path: 'angular-aria' },
     { label: 'Control Flow', path: 'control-flow' },
+    { label: 'Dynamic Components', path: 'dynamic-components' },
   ];
 }

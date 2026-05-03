@@ -1,40 +1,47 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-    {
-        path: 'dashboard',
-        loadComponent: () => import('./pages/dashboard/dashboard').then(c => c.Dashboard),
-        children: [
-            {
-                path: 'signal-forms',
-                loadComponent: () => import('./components/signal-forms/signal-forms').then(c => c.SignalForms)
-            },
-            {
-                path: 'http-resource',
-                loadComponent: () => import('./pages/http-resource/http-resource').then(c => c.HttpResource)
-            },
-            {
-                path: 'zoneless',
-                loadComponent: () => import('./pages/zoneless/zoneless').then(c => c.Zoneless)
-            },
-            {
-                path: 'angular-aria',
-                loadComponent: () => import('./pages/angular-aria/angular-aria').then(c => c.AngularAria)
-            },
-            {
-                path: 'control-flow',
-                loadComponent: () => import('./pages/control-flow/control-flow').then(c => c.ControlFlow)
-            },
-            {
-                path: '',
-                redirectTo: 'signal-forms',
-                pathMatch: 'full'
-            }
-        ]
-    },
-    {
-        path: '**',
-        redirectTo: 'dashboard',
-        pathMatch: 'full'
-    }
+  {
+    path: 'dashboard',
+    loadComponent: () => import('./pages/dashboard/dashboard').then((c) => c.Dashboard),
+    children: [
+      {
+        path: 'signal-forms',
+        loadComponent: () =>
+          import('./components/signal-forms/signal-forms').then((c) => c.SignalForms),
+      },
+      {
+        path: 'http-resource',
+        loadComponent: () =>
+          import('./pages/http-resource/http-resource').then((c) => c.HttpResource),
+      },
+      {
+        path: 'zoneless',
+        loadComponent: () => import('./pages/zoneless/zoneless').then((c) => c.Zoneless),
+      },
+      {
+        path: 'angular-aria',
+        loadComponent: () => import('./pages/angular-aria/angular-aria').then((c) => c.AngularAria),
+      },
+      {
+        path: 'control-flow',
+        loadComponent: () => import('./pages/control-flow/control-flow').then((c) => c.ControlFlow),
+      },
+      {
+        path: 'dynamic-components',
+        loadComponent: () =>
+          import('./pages/dynamic-components/dynamic-components').then((c) => c.DynamicComponents),
+      },
+      {
+        path: '',
+        redirectTo: 'signal-forms',
+        pathMatch: 'full',
+      },
+    ],
+  },
+  {
+    path: '**',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
+  },
 ];
