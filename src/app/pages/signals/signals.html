@@ -1,0 +1,85 @@
+<div class="flex">
+  <div>Server:</div>
+  <div class="ml-2 flex">
+    <div>{{ serverName() }} is</div>
+    <div [ngClass]="statusColor()" class="ml-2">{{ status() }}</div>
+  </div>
+</div>
+
+<div class="flex">
+  <div>CPU Temperature:</div>
+  <div class="ml-2 flex">
+    <div>{{ cpuTemp() }}°C</div>
+    <div [ngClass]="statusColor()" class="ml-2">{{ status() }}</div>
+  </div>
+</div>
+
+<div class="flex">
+  <div>Fan Speed:</div>
+  <div class="ml-2 flex">
+    <div>{{ fanSpeed() }}</div>
+    <div [ngClass]="statusColor()" class="ml-2">{{ status() }}</div>
+  </div>
+</div>
+
+<div>
+  <button
+    class="btn btn-primary mr-2 rounded-md bg-amber-500 p-2 text-white"
+    (click)="togglePower()">
+    {{ isPowerOn() ? 'Shutdown' : 'Startup' }}
+  </button>
+  <button
+    class="btn btn-primary mr-2 rounded-md bg-amber-500 p-2 text-white"
+    (click)="increaseTemp()">
+    + Temperature
+  </button>
+  <button
+    class="btn btn-primary mr-2 rounded-md bg-amber-500 p-2 text-white"
+    (click)="decreaseTemp()">
+    - Temperature
+  </button>
+  <button
+    class="btn btn-primary mr-2 rounded-md bg-amber-500 p-2 text-white"
+    (click)="switchServer()">
+    Switch Server
+  </button>
+  <button
+    class="btn btn-primary mr-2 rounded-md bg-amber-500 p-2 text-white"
+    (click)="switchFanSpeed()">
+    Switch Fan Speed
+  </button>
+</div>
+
+<div class="mt-5">
+  <select class="rounded-md border border-slate-300 p-2 mb-3" (change)="updateTier($event)">
+    <option value="small">Small</option>
+    <option value="medium">Medium</option>
+    <option value="large">Large</option>
+  </select>
+
+  <div>
+    <div class="flex">
+      <div>RAM Actual: {{ assignedRam() }} GB |</div>
+      <div class="ml-2">RAM Default: {{ TIER_DEFAULTS[selectedTier()].ram }} GB</div>
+
+    </div>
+    <button
+      [disabled]="assignedRam() === 0"
+      class="btn btn-primary mr-2 rounded-md bg-amber-500 p-2 text-white"
+      (click)="decreaseRam(assignedRam() - 1)">
+      -1 GB (Custom)
+    </button>
+    <button
+      class="btn btn-primary mr-2 rounded-md bg-amber-500 p-2 text-white"
+      (click)="increaseRam(assignedRam() + 1)">
+      +1 GB (Custom)
+    </button>
+  </div>
+
+  @if (assignedRam() > TIER_DEFAULTS[selectedTier()].ram) {
+    <p style="color: orange">⚠️ Estás usando más RAM que el default del tier.</p>
+  }
+  @if (assignedRam() < TIER_DEFAULTS[selectedTier()].ram) {
+    <p style="color: green">✅ Estás usando menos RAM que el default del tier.</p>
+  }
+</div>

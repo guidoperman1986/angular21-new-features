@@ -33,6 +33,11 @@ export const routes: Routes = [
           import('./pages/dynamic-components/dynamic-components').then((c) => c.DynamicComponents),
       },
       {
+        path: 'signals',
+        loadComponent: () =>
+          import('./pages/signals/signals').then((c) => c.Signals),
+      },
+      {
         path: '',
         redirectTo: 'signal-forms',
         pathMatch: 'full',

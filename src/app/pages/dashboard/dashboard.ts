@@ -16,5 +16,6 @@ export class Dashboard {
     { label: 'Angular Aria', path: 'angular-aria' },
     { label: 'Control Flow', path: 'control-flow' },
     { label: 'Dynamic Components', path: 'dynamic-components' },
+    { label: 'Signals', path: 'signals'}
   ];
 }
