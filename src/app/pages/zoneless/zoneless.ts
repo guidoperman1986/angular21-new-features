@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, signal, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-zoneless',
   imports: [],
   templateUrl: './zoneless.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './zoneless.css',
 })
 export class Zoneless {

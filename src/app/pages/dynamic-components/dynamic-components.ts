@@ -1,10 +1,18 @@
-import { Component, inputBinding, outputBinding, viewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  inputBinding,
+  outputBinding,
+  viewChild,
+  ViewContainerRef,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { Dialog } from '../../components/dialog/dialog';
 
 @Component({
   selector: 'app-dynamic-components',
   imports: [],
   templateUrl: './dynamic-components.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './dynamic-components.css',
 })
 export class DynamicComponents {
@@ -17,7 +25,7 @@ export class DynamicComponents {
         inputBinding('title', () => 'Dynamic Component'),
         inputBinding('content', () => 'This is a dynamic component'),
         outputBinding('onClose', () => this.container().clear()),
-      ]
+      ],
     });
   }
 }

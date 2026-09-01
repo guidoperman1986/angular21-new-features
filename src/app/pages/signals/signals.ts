@@ -1,5 +1,13 @@
 import { NgClass } from '@angular/common';
-import { Component, computed, effect, linkedSignal, signal, untracked } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  linkedSignal,
+  signal,
+  untracked,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 type ServerTier = 'small' | 'medium' | 'large';
 
@@ -7,6 +15,7 @@ type ServerTier = 'small' | 'medium' | 'large';
   selector: 'app-signals',
   imports: [NgClass],
   templateUrl: './signals.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './signals.css',
 })
 export class Signals {

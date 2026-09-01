@@ -1,15 +1,16 @@
 import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, resource, signal } from '@angular/core';
+import { Component, inject, resource, signal, ChangeDetectionStrategy } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { Card } from "../../components/card/card";
+import { Card } from '../../components/card/card';
 import { User } from '../../models/user';
 
 @Component({
   selector: 'app-http-resource',
   imports: [FormsModule, Card],
   templateUrl: './http-resource.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './http-resource.css',
 })
 export class HttpResource {
@@ -24,6 +25,7 @@ export class HttpResource {
 
   userResource = resource({
     params: () => ({ id: this.userId() }),
-    loader: ({ params }) => fetch(`https://dummyjson.com/users/${params.id}`).then((res) => res.json()),
+    loader: ({ params }) =>
+      fetch(`https://dummyjson.com/users/${params.id}`).then((res) => res.json()),
   });
 }

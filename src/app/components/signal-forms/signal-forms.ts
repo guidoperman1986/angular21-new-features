@@ -1,4 +1,4 @@
-import { Component, effect, signal } from '@angular/core';
+import { Component, effect, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   debounce,
   email,
@@ -19,6 +19,7 @@ interface LoginData {
   selector: 'app-signal-forms',
   imports: [FormField],
   templateUrl: './signal-forms.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './signal-forms.css',
 })
 export class SignalForms {
@@ -41,7 +42,7 @@ export class SignalForms {
       return null;
     });
 
-    validate(model.confirmPassword, ({value, valueOf}) => {
+    validate(model.confirmPassword, ({ value, valueOf }) => {
       if (value() !== valueOf(model.password)) {
         return { message: 'Passwords do not match', kind: 'error' };
       }

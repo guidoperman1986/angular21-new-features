@@ -2,7 +2,7 @@ import { Listbox, Option } from '@angular/aria/listbox';
 import { Menu, MenuItem, MenuTrigger } from '@angular/aria/menu';
 import { Tree, TreeItem, TreeItemGroup } from '@angular/aria/tree';
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-angular-aria',
@@ -15,9 +15,10 @@ import { Component, signal } from '@angular/core';
     Tree,
     TreeItem,
     TreeItemGroup,
-    NgTemplateOutlet
+    NgTemplateOutlet,
   ],
   templateUrl: './angular-aria.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './angular-aria.css',
 })
 export class AngularAria {
