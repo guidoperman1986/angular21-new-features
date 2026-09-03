@@ -50,7 +50,7 @@
 
           <ul
             ngListbox
-            [(values)]="selectedRoles"
+            [(value)]="selectedRoles"
             aria-labelledby="lb-label"
             class="menu bg-base-100 rounded-box h-48 w-full gap-1 overflow-y-auto border p-2">
             @for (role of roles; track role.id) {
