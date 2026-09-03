@@ -40,4 +40,24 @@
       <p>Loading...</p>
     }
   </section>
+
+  <section class="mt-5">
+    <h2 class="text-2xl font-bold">httpResource</h2>
+      <p>
+        <span class="font-bold">Status:</span>
+        {{ httpUserResource.status() }}
+      </p>
+      <p>
+        <span class="font-bold">isLoading:</span>
+        {{ httpUserResource.isLoading() }}
+      </p>
+      
+      @if (httpUserResource.hasValue()) {
+        @if (httpUserResource.value(); as user) {
+          <app-card [user]="user"></app-card>
+        }
+      } @else {
+        <p>Loading...</p>
+      }
+  </section>
 </div>

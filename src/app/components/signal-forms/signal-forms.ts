@@ -1,4 +1,5 @@
-import { Component, effect, signal, ChangeDetectionStrategy } from '@angular/core';
+import { JsonPipe } from '@angular/common';
+import { Component, effect, signal, ChangeDetectionStrategy, computed } from '@angular/core';
 import {
   debounce,
   email,
@@ -17,7 +18,7 @@ interface LoginData {
 
 @Component({
   selector: 'app-signal-forms',
-  imports: [FormField],
+  imports: [FormField, JsonPipe],
   templateUrl: './signal-forms.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './signal-forms.css',
@@ -28,6 +29,8 @@ export class SignalForms {
     password: '',
     confirmPassword: '',
   });
+
+  focusField = signal<keyof LoginData | null>(null);
 
   loginForm = form(this.loginModel, (model) => {
     (email(model.email, { message: 'Email format is invalid' }),
@@ -49,6 +52,16 @@ export class SignalForms {
       return null;
     });
   });
+
+  focusedFieldIsInvalid = computed(() => ({
+    field: this.focusField(),
+    invalid: this.focusField() ? this.loginForm[this.focusField()!]().errors() : false,
+    touched: this.focusField() ? this.loginForm[this.focusField()!]().touched() : false,
+    dirty: this.focusField() ? this.loginForm[this.focusField()!]().dirty() : false,
+    valid: this.focusField() ? this.loginForm[this.focusField()!]().valid() : false,
+    errors: this.focusField() ? this.loginForm[this.focusField()!]().errors() : false,
+    value: this.focusField() ? this.loginForm[this.focusField()!]().value() : false,
+  }));
 
   constructor() {
     // ✅ This is the equivalent of formGroup.valueChanges
@@ -76,5 +89,9 @@ export class SignalForms {
         confirmPassword: '',
       });
     });
+  }
+
+  setFocus(field: keyof LoginData) {
+    this.focusField.set(field);
   }
 }
