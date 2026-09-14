@@ -8,7 +8,9 @@
         <h3 class="mb-4 font-bold">Accessible Menu</h3>
         <p class="mb-4 text-xs opacity-70">Click to open. Use Arrows to navigate. Esc to close.</p>
         <!-- <button ngMenuTrigger #origin #trigger="ngMenuTrigger" [menu]="formatMenu()">Open Menu</button> -->
-        <button #trigger="ngMenuTrigger" class="btn btn-neutral" ngMenuTrigger [menu]="myMenu">Options ▾</button>
+        <button #trigger="ngMenuTrigger" class="btn btn-neutral" ngMenuTrigger [menu]="myMenu">
+          Options ▾
+        </button>
 
         <!-- 
               The menu directive applies role="menu", handles focus trap, etc.
@@ -125,6 +127,54 @@
             </li>
           }
         </ng-template>
+      </div>
+
+      <!-- Accordion Demo -->
+      <div class="rounded-box border p-4">
+        <h3 class="mb-4 font-bold">Accessible Accordion</h3>
+        <p class="mb-4 text-xs opacity-70">Click to expand. Arrows to navigate.</p>
+
+        <div ngAccordionGroup [multiExpandable]="false" class="rounded-box w-full divide-y border">
+          <div>
+            <h3 class="m-0">
+              <button
+                ngAccordionTrigger
+                [panel]="panel1"
+                #t1="ngAccordionTrigger"
+                class="hover:bg-base-200 focus:bg-primary focus:text-primary-content flex w-full items-center justify-between p-3 text-left font-medium outline-none">
+                ¿Qué es un minyan?
+                <span class="text-xs transition-transform" [class.rotate-180]="t1.expanded()"
+                  >▼</span
+                >
+              </button>
+            </h3>
+            <div ngAccordionPanel #panel1="ngAccordionPanel" class="px-3 pb-3 text-sm opacity-80">
+              <ng-template ngAccordionContent>
+                <p>Grupo de 10 hombres adultos para rezar con ciertos requisitos...</p>
+              </ng-template>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="m-0">
+              <button
+                ngAccordionTrigger
+                [panel]="panel2"
+                #t2="ngAccordionTrigger"
+                class="hover:bg-base-200 focus:bg-primary focus:text-primary-content flex w-full items-center justify-between p-3 text-left font-medium outline-none">
+                ¿Qué es Angular Aria?
+                <span class="text-xs transition-transform" [class.rotate-180]="t2.expanded()"
+                  >▼</span
+                >
+              </button>
+            </h3>
+            <div ngAccordionPanel #panel2="ngAccordionPanel" class="px-3 pb-3 text-sm opacity-80">
+              <ng-template ngAccordionContent>
+                <p>Primitives accesibles headless: vos ponés el look.</p>
+              </ng-template>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

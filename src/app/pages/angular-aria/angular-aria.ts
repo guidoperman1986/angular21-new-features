@@ -1,3 +1,9 @@
+import {
+  AccordionGroup,
+  AccordionTrigger,
+  AccordionPanel,
+  AccordionContent,
+} from '@angular/aria/accordion';
 import { Listbox, Option } from '@angular/aria/listbox';
 import { Menu, MenuItem, MenuTrigger } from '@angular/aria/menu';
 import { Tree, TreeItem, TreeItemGroup } from '@angular/aria/tree';
@@ -15,7 +21,10 @@ import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
     Tree,
     TreeItem,
     TreeItemGroup,
-    NgTemplateOutlet,
+    AccordionGroup,
+    AccordionTrigger,
+    AccordionPanel,
+    AccordionContent,
   ],
   templateUrl: './angular-aria.html',
   changeDetection: ChangeDetectionStrategy.Eager,
