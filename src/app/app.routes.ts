@@ -38,6 +38,10 @@ export const routes: Routes = [
           import('./pages/signals/signals').then((c) => c.Signals),
       },
       {
+        path: 'web-mcp',
+        loadComponent: () => import('./pages/web-mcp/web-mcp').then((c) => c.WebMcp),
+      },
+      {
         path: '',
         redirectTo: 'signal-forms',
         pathMatch: 'full',

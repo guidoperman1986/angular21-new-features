@@ -1,0 +1,143 @@
+<div class="rounded-lg bg-white p-6 shadow-md">
+  <h2 class="mb-2 text-2xl font-bold text-gray-800">WebMCP + Signal Forms</h2>
+  <p class="mb-4 text-gray-600">
+    Experimental v22: this form is also a browser tool named
+    <code class="rounded bg-slate-100 px-1">registerUser</code>. A WebMCP agent fills the model and
+    runs the same <code class="rounded bg-slate-100 px-1">submission.action</code> as the button —
+    no DOM clicking. Chrome has no host yet, so this playground polyfills
+    <code class="rounded bg-slate-100 px-1">navigator.modelContext</code>.
+  </p>
+
+  <p class="mb-6 text-sm text-gray-500">
+    Tools registered:
+    @if (registry?.tools().length) {
+      @for (tool of registry!.tools(); track tool.name) {
+        <code class="mr-2 rounded bg-indigo-50 px-1 text-indigo-700">{{ tool.name }}</code>
+      }
+    } @else {
+      <span>none yet (open this route and wait a tick)</span>
+    }
+  </p>
+
+  <div class="grid gap-8 md:grid-cols-2">
+    <form [formRoot]="registerForm" class="flex flex-col gap-3">
+      <label class="flex flex-col gap-1 font-medium text-gray-700">
+        First name
+        <input
+          class="rounded border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none"
+          [formField]="registerForm.firstName" />
+      </label>
+      @if (registerForm.firstName().touched() && registerForm.firstName().invalid()) {
+        <ul class="text-sm text-red-600">
+          @for (error of registerForm.firstName().errors(); track error) {
+            <li>{{ error.message }}</li>
+          }
+        </ul>
+      }
+
+      <label class="flex flex-col gap-1 font-medium text-gray-700">
+        Last name
+        <input
+          class="rounded border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none"
+          [formField]="registerForm.lastName" />
+      </label>
+      @if (registerForm.lastName().touched() && registerForm.lastName().invalid()) {
+        <ul class="text-sm text-red-600">
+          @for (error of registerForm.lastName().errors(); track error) {
+            <li>{{ error.message }}</li>
+          }
+        </ul>
+      }
+
+      <label class="flex flex-col gap-1 font-medium text-gray-700">
+        Email
+        <input
+          type="email"
+          class="rounded border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none"
+          [formField]="registerForm.email" />
+      </label>
+      @if (registerForm.email().touched() && registerForm.email().invalid()) {
+        <ul class="text-sm text-red-600">
+          @for (error of registerForm.email().errors(); track error) {
+            <li>{{ error.message }}</li>
+          }
+        </ul>
+      }
+
+      <label class="flex flex-col gap-1 font-medium text-gray-700">
+        Age
+        <input
+          type="number"
+          class="rounded border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none"
+          [formField]="registerForm.age" />
+      </label>
+      @if (registerForm.age().touched() && registerForm.age().invalid()) {
+        <ul class="text-sm text-red-600">
+          @for (error of registerForm.age().errors(); track error) {
+            <li>{{ error.message }}</li>
+          }
+        </ul>
+      }
+
+      <label class="flex items-center gap-2 font-medium text-gray-700">
+        <input type="checkbox" [formField]="registerForm.newsletter" />
+        Newsletter
+      </label>
+
+      <button
+        type="submit"
+        class="rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700">
+        Register
+      </button>
+    </form>
+
+    <div class="flex flex-col gap-4">
+      <section>
+        <h3 class="mb-2 font-semibold text-gray-800">Call as agent</h3>
+        <p class="mb-2 text-sm text-gray-500">
+          This is what a browser agent sends to <code>registerUser</code>. Try the invalid payload
+          to see validation errors come back as tool text and on the form.
+        </p>
+        <div class="mb-2 flex gap-2">
+          <button
+            type="button"
+            class="rounded border px-3 py-1 text-sm hover:bg-slate-50"
+            (click)="loadValidPayload()">
+            Valid payload
+          </button>
+          <button
+            type="button"
+            class="rounded border px-3 py-1 text-sm hover:bg-slate-50"
+            (click)="loadInvalidPayload()">
+            Invalid payload
+          </button>
+        </div>
+        <textarea
+          class="h-40 w-full rounded border border-gray-300 p-2 font-mono text-xs"
+          [value]="agentPayload()"
+          (input)="onPayloadInput($event)"></textarea>
+        <button
+          type="button"
+          class="mt-2 rounded bg-slate-800 px-4 py-2 text-white hover:bg-slate-900"
+          (click)="callRegisterUser()">
+          Call registerUser
+        </button>
+        @if (lastAgentResult()) {
+          <pre
+            class="mt-2 overflow-x-auto rounded bg-slate-100 p-3 font-mono text-xs whitespace-pre-wrap">{{ lastAgentResult() }}</pre>
+        }
+      </section>
+
+      <section>
+        <h3 class="mb-2 font-semibold text-gray-800">Registered users</h3>
+        @if (users().length === 0) {
+          <p class="text-sm text-gray-500">None yet. Submit the form or call the tool.</p>
+        } @else {
+          <pre class="rounded bg-slate-100 p-3 font-mono text-xs whitespace-pre-wrap">{{
+            users() | json
+          }}</pre>
+        }
+      </section>
+    </div>
+  </div>
+</div>

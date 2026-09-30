@@ -17,5 +17,6 @@ export class Dashboard {
     { label: 'Control Flow', path: 'control-flow' },
     { label: 'Dynamic Components', path: 'dynamic-components' },
     { label: 'Signals', path: 'signals' },
+    { label: 'WebMCP', path: 'web-mcp' },
   ];
 }
