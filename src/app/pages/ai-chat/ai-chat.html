@@ -4,11 +4,10 @@
   <div class="flex gap-2">
     <input
       type="text"
-      [(ngModel)]="userPrompt"
+      [formField]="promptForm.prompt"
       (keyup.enter)="sendPrompt()"
       placeholder="Escribe tu consulta..."
-      class="flex-1 rounded-lg border p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-      [disabled]="isLoading()" />
+      class="flex-1 rounded-lg border p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
     <button
       (click)="sendPrompt()"
       [disabled]="isLoading() || !userPrompt().trim()"
@@ -16,6 +15,14 @@
       Enviar
     </button>
   </div>
+
+  @if (promptForm.prompt().touched() && promptForm.prompt().invalid()) {
+    <div class="error-list text-red-500">
+      @for (error of promptForm.prompt().errors(); track error) {
+        <p>{{ error.message }}</p>
+      }
+    </div>
+  }
 
   @if (aiResponse()) {
     <div class="mt-4 rounded-lg border border-gray-200 bg-gray-100 p-4 whitespace-pre-wrap">

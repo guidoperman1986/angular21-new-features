@@ -1,4 +1,4 @@
-import { inject, Service, signal, WritableSignal } from '@angular/core';
+import { inject, injectAsync, Service, signal, WritableSignal } from '@angular/core';
 import { GoogleGenAI } from '@google/genai';
 
 @Service()
