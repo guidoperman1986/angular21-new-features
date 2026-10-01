@@ -60,3 +60,25 @@
       }
   </section>
 </div>
+
+<div class="mt-5">
+  <h2 class="text-2xl font-bold">Posts</h2>
+  <p>
+    <span class="font-bold">Status:</span>
+    {{ posts.status() }}
+  </p>
+  <p>
+    <span class="font-bold">isLoading:</span>
+    {{ posts.isLoading() }}
+  </p>
+  @if (posts.hasValue()) {
+    
+    @if (posts.value(); as postsValue) {
+      @for (post of postsValue.posts; track post.id) {
+        <pre>{{ post.title| json }}</pre>
+      }
+    }
+  } @else {
+    <p>Loading...</p>
+  }
+</div>

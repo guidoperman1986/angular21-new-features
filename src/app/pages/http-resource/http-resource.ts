@@ -4,12 +4,12 @@ import { Component, inject, resource, signal, ChangeDetectionStrategy } from '@a
 import { rxResource } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { Card } from '../../components/card/card';
-import { User } from '../../models/user';
+import { Posts, User } from '../../models/user';
 import { HttpService } from '../../services/http';
 
 @Component({
   selector: 'app-http-resource',
-  imports: [FormsModule, Card],
+  imports: [FormsModule, Card, JsonPipe],
   templateUrl: './http-resource.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './http-resource.css',
@@ -33,4 +33,12 @@ export class HttpResource {
   });
 
   httpUserResource = httpResource<User>(() => `https://dummyjson.com/users/${this.userId()}`);
+
+  user = httpResource<User>(() => `https://dummyjson.com/users/${this.userId()}`);
+
+  posts = resource<Posts, any>(({
+    params: () => ({ id: this.userId() }),
+    loader: ({ params }) =>
+      fetch(`https://dummyjson.com/users/${params.id}/posts`).then((res) => res.json()),
+  }));
 }
