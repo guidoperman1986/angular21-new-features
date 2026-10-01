@@ -42,6 +42,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/web-mcp/web-mcp').then((c) => c.WebMcp),
       },
       {
+        path: 'ai-chat',
+        loadComponent: () => import('./pages/ai-chat/ai-chat').then((c) => c.AiChat),
+      },
+      {
         path: '',
         redirectTo: 'signal-forms',
         pathMatch: 'full',

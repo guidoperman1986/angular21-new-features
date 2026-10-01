@@ -18,5 +18,6 @@ export class Dashboard {
     { label: 'Dynamic Components', path: 'dynamic-components' },
     { label: 'Signals', path: 'signals' },
     { label: 'WebMCP', path: 'web-mcp' },
+    { label: 'AI Chat', path: 'ai-chat' },
   ];
 }
